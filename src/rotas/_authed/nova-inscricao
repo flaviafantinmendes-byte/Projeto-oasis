@@ -1,0 +1,65 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
+import { painelDoPerfil, pode } from "@/lib/perfis";
+import PainelTopo from "@/components/painel/PainelTopo";
+import AcessoRestrito from "@/components/painel/AcessoRestrito";
+import FichaForm from "@/components/inscricoes/FichaForm";
+
+export const Route = createFileRoute("/_authed/nova-inscricao")({
+  ssr: false,
+  head: () => ({ meta: [{ title: "Nova ficha de inscrição" }] }),
+  component: NovaInscricaoPage,
+});
+
+function NovaInscricaoPage() {
+  const { user, isLoadingAuth } = useAuth();
+  const autorizado = pode(user, "criarFicha");
+
+  if (isLoadingAuth) {
+    return <div className="arena-container py-20 text-sm text-arena-gray">Carregando…</div>;
+  }
+  if (!autorizado) {
+    return <AcessoRestrito perfilNecessario="professor ou administrador" painel={painelDoPerfil(user)} />;
+  }
+
+  return (
+    <>
+      <PainelTopo
+        eyebrow="Inscrição"
+        title="Nova ficha de última hora"
+        description="Administrador e professor podem criar fichas. Nas lutas a divisão é por peso, idade e sexo; em Música e Dança, por idade e sexo."
+        actions={
+          <Link
+            to={painelDoPerfil(user)}
+            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 font-display text-[11.5px] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:border-white/60 hover:bg-white/10"
+          >
+            <ArrowLeft className="h-4 w-4" /> Voltar ao painel
+          </Link>
+        }
+      />
+
+      <div className="arena-container grid gap-6 py-10 lg:grid-cols-[1.5fr_1fr]">
+        <FichaForm professor={user?.full_name} />
+
+        <aside className="space-y-4">
+          <div className="rounded-2xl border border-black/[0.07] bg-white p-5">
+            <h2 className="font-display text-sm font-bold uppercase text-arena-ink">Como a categoria é definida</h2>
+            <ul className="mt-3 space-y-2 text-[12.5px] leading-relaxed text-arena-gray">
+              <li>• A idade é calculada pela data de nascimento informada.</li>
+              <li>• A categoria etária (Kids, Infantil, Juvenil, Adulto, Master, Sênior) é preenchida automaticamente.</li>
+              <li>• Jiu-Jitsu e Taekwondo também recebem a divisão de peso conforme o sexo.</li>
+              <li>• Música e Dança não têm pesagem: apenas idade e sexo.</li>
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-black/[0.07] bg-arena-mist/60 p-5">
+            <h2 className="font-display text-sm font-bold uppercase text-arena-ink">Campos obrigatórios</h2>
+            <p className="mt-2 text-[12.5px] leading-relaxed text-arena-gray">
+              Nome completo, data de nascimento, sexo, telefone e e-mail. Para lutas, o peso também é obrigatório.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </>
+  );
+}
