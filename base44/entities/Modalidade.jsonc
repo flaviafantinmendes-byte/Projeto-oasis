@@ -1,0 +1,56 @@
+{
+  "name": "Modalidade",
+  "type": "object",
+  "properties": {
+    "nome": {
+      "type": "string",
+      "description": "Nome da modalidade"
+    },
+    "slug": {
+      "type": "string",
+      "description": "Identificador para URLs"
+    },
+    "descricao": {
+      "type": "string",
+      "description": "Descri\u00e7\u00e3o curta"
+    },
+    "imagem_url": {
+      "type": "string",
+      "description": "Imagem de capa"
+    },
+    "competicoes": {
+      "type": "number",
+      "description": "Quantidade de competi\u00e7\u00f5es publicadas"
+    },
+    "ordem": {
+      "type": "number",
+      "description": "Ordem de exibi\u00e7\u00e3o"
+    },
+    "ativo": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "nome",
+    "slug"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

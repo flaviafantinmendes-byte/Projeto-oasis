@@ -1,0 +1,54 @@
+{
+  "name": "Equipe",
+  "type": "object",
+  "properties": {
+    "nome": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "modalidade": {
+      "type": "string"
+    },
+    "cidade": {
+      "type": "string"
+    },
+    "responsavel": {
+      "type": "string"
+    },
+    "atletas_count": {
+      "type": "number",
+      "default": 0
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "descricao": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "nome",
+    "slug",
+    "modalidade"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

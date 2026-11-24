@@ -1,0 +1,70 @@
+{
+  "name": "Atleta",
+  "type": "object",
+  "properties": {
+    "nome": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "modalidade": {
+      "type": "string"
+    },
+    "equipe": {
+      "type": "string"
+    },
+    "cidade": {
+      "type": "string"
+    },
+    "faixa": {
+      "type": "string",
+      "description": "Faixa, gradua\u00e7\u00e3o ou categoria"
+    },
+    "pontos": {
+      "type": "number",
+      "default": 0
+    },
+    "medalhas_ouro": {
+      "type": "number",
+      "default": 0
+    },
+    "medalhas_prata": {
+      "type": "number",
+      "default": 0
+    },
+    "medalhas_bronze": {
+      "type": "number",
+      "default": 0
+    },
+    "foto_url": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "nome",
+    "slug",
+    "modalidade"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
