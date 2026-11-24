@@ -1,0 +1,55 @@
+{
+  "name": "MensagemContato",
+  "type": "object",
+  "properties": {
+    "nome": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "assunto": {
+      "type": "string"
+    },
+    "mensagem": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "novo",
+        "lido",
+        "respondido"
+      ],
+      "enumColors": [
+        "blue",
+        "yellow",
+        "green"
+      ],
+      "default": "novo"
+    }
+  },
+  "required": [
+    "nome",
+    "email",
+    "mensagem"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
